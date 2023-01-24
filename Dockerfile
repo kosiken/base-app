@@ -8,8 +8,8 @@ EXPOSE 3003
 FROM base as production
 ENV NODE_ENV=production
 RUN npm install
-RUN npm run build
 COPY . /
+RUN npm run build
 CMD ["npm", "run", "start"]
 
 FROM base as dev
