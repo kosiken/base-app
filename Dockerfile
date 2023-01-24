@@ -3,18 +3,17 @@ FROM node:16-alpine as base
 WORKDIR /usr/src/app
 # RUN npm install -g yarn
 COPY package*.json /
-COPY yarn.lock /
-EXPOSE 1337
+EXPOSE 3003
 
 FROM base as production
 ENV NODE_ENV=production
-RUN yarn
-RUN yarn build
+RUN npm install
+RUN npm run build
 COPY . /
-CMD ["yarn", "run", "start"]
+CMD ["npm", "run", "start"]
 
 FROM base as dev
 ENV NODE_ENV=development
-RUN yarn
+RUN npm install
 COPY . /
-CMD ["yarn", "run", "dev"]
+CMD ["npm", "run", "dev"]
