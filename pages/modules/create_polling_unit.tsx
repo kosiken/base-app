@@ -300,8 +300,8 @@ onSubmit={(p) => {
    
 
 ))}
-     <Button disabled={isFetching || selectedLga < 0 || selectedWard < 0} onClick={formData.handleSubmit as any} type="submit">
-             Submit
+     <Button disabled={isFetching || selectedLga < 0 || selectedWard < 0 || isLoading} onClick={formData.handleSubmit as any} type="submit">
+             {isLoading ? 'Submitting' : 'Submit'}
            </Button>
 
 </div>)}
