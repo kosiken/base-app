@@ -20,7 +20,7 @@ pipeline {
       stage('Deploy Application') {
           steps {
              sh 'docker stop frontend-svelte || true && docker rm frontend-svelte || true'
-             sh 'docker run -d -p 3003:3003 --name frontend-svelte --env-file ~/env/kosiken/frontend-svelte.env ${imageName}'
+             sh 'docker run -d -p 3003:3003 --name frontend-svelte ${imageName}'
           }
       }
         stage('Cleanup Build') {
