@@ -1,4 +1,4 @@
-import { SERVER_URL } from "../../constants";
+import { SERVER_URL } from "../constants";
 import ApiBase, { Methods } from "./api-base";
 
 const Items = {

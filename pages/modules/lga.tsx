@@ -3,7 +3,7 @@ import * as React from 'react';
 import { NextPage } from 'next'
 import { useTable, Column, usePagination } from 'react-table'
 import { useQuery } from 'react-query'
-import Api from '../service/pollsApi';
+import Api from '../../service/pollsApi';
 import { WithSideBar } from '../../components/SidebarLayout';
 import Button from '../../components/Button';
 import Select from '../../components/Select';

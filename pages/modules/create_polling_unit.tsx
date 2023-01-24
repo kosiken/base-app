@@ -5,7 +5,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import { WithSideBar } from '../../components/SidebarLayout'
 import { SERVER_URL } from '../../constants';
-import Api from '../service/pollsApi';
+import Api from '../../service/pollsApi';
 import { ILga } from './lga';
 import { useMutation, useQuery } from 'react-query';
 import Button from '../../components/Button';

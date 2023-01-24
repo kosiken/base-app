@@ -5,7 +5,7 @@ import { useTable, Column, usePagination } from 'react-table'
 import { useQuery } from 'react-query';
 import Select from '../../../components/Select';
 import { SERVER_URL } from '../../../constants';
-import Api from '../../service/pollsApi';
+import Api from '../../../service/pollsApi';
 import { WithSideBar } from '../../../components/SidebarLayout';
 import Button from '../../../components/Button';
 
