@@ -43,6 +43,7 @@ const CreatePollingUnit: NextPage<{
     }, [data]);
     const create = React.useCallback(async (data: any) => {
         setCreated(-1);
+
         const payload = ({
             pollingUnit: {
                 ...data.polling_unit,
@@ -59,9 +60,23 @@ const CreatePollingUnit: NextPage<{
 
         return resp
     }, [selectedLga, selectedWard])
+    React.useEffect(() => {
+
+        if(selectedLga > -1) {
+            // setWards([])
+         
+            setSelectedWard(-1);
+  
+
+            refetch()
+        
+            
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedLga]);
     const memo = React.useCallback(
         async () => {
-            if(selectedLga < 0 ) {
+            if(selectedLga <= -1 ) {
                 return
             }
         
@@ -80,19 +95,7 @@ const CreatePollingUnit: NextPage<{
         [selectedLga],
     )
 
-    React.useEffect(() => {
-   
-        if(selectedLga > -1) {
-            // setWards([])
-            setSelectedWard(-1);
-  
 
-            refetch()
-        
-            
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedLga]);
     
     const { data: ret, isFetching, refetch, isError } = useQuery('load-wards', memo, {
         enabled: true,
@@ -131,6 +134,7 @@ const CreatePollingUnit: NextPage<{
 
 value={selectedLga}
 onChange={e => {
+    console.log(e.target.value);
     setSelectedLga(parseInt((e.target as any).value))
 }}
 >
