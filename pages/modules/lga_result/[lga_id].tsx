@@ -42,7 +42,6 @@ const LgaResult:  NextPage<{data: {[x: string]: number}; page: number; lgas: ILg
         onSubmit(selectedLga);
     }, [selectedLga])
 
-
     const tableData = React.useMemo(() => announcedResults, [announcedResults]);
 
     const columns: Column<IData>[] = React.useMemo(
