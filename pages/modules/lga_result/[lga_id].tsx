@@ -8,6 +8,8 @@ import { SERVER_URL } from '../../../constants';
 import Api from '../../../service/pollsApi';
 import { WithSideBar } from '../../../components/SidebarLayout';
 import Button from '../../../components/Button';
+import { ILga } from '../lga';
+import { on } from 'events';
 
 
 interface IData{
@@ -15,11 +17,11 @@ interface IData{
     score: number;
 }
 
-const LgaResult:  NextPage<{data: {[x: string]: number}; page: number;}> = ({data}) => {
+const LgaResult:  NextPage<{data: {[x: string]: number}; page: number; lgas: ILga[]; lgaId: number }> = ({data, lgas, lgaId}) => {
 
     const [announcedResults, setAnnouncedResults] = React.useState<IData[]>([])
     const [rows, setRows] = React.useState(0);
-
+    const [selectedLga, setSelectedLga] = React.useState<number>(lgaId);
 
 
     React.useEffect(() => {
@@ -30,6 +32,15 @@ const LgaResult:  NextPage<{data: {[x: string]: number}; page: number;}> = ({dat
         setAnnouncedResults(ans);
         setRows(ans.length);
     }, [data])
+
+    const onSubmit = React.useCallback((toLga: number) => {
+        if(toLga !== lgaId) {
+            window.location.pathname = `/modules/lga_result/${toLga}`
+        }
+    }, [lgaId])
+    React.useEffect(() => {
+        onSubmit(selectedLga);
+    }, [selectedLga])
 
 
     const tableData = React.useMemo(() => announcedResults, [announcedResults]);
@@ -82,6 +93,21 @@ const LgaResult:  NextPage<{data: {[x: string]: number}; page: number;}> = ({dat
 
     return (
         <div className="flex flex-col max-h-[700px] h-[80vh]">
+            <form onSubmit={e => e.preventDefault()}>
+                <Select value={selectedLga}
+onChange={e => {
+    setSelectedLga(parseInt((e.target as any).value))
+
+}}
+>
+<option value="-1">-- Select LGA --</option>
+{lgas.map((lga, i) => (
+    <option key={`lga-${i}`} value={lga.lga_id}>
+        {`LgaId:${lga.lga_id} - ${lga.lga_name}`}
+    </option>
+))}
+</Select>
+            </form>
             <div className="flex-1 overflow-y-scroll">
                 <table {...getTableProps()} className="w-full text-left border-collapse max-w-[800px]">
                     <thead >
@@ -207,7 +233,7 @@ export async function getServerSideProps({params}: GetServerSidePropsContext) {
     console.log(data, params)
     // Pass data to the page via props
     
-    return { props: { data: data.data } }
+    return { props: { data: data.data.results, lgas: data.data.lgas, lgaId: params?.lga_id } }
 }
 
 export default WithSideBar(LgaResult, 'lga');
