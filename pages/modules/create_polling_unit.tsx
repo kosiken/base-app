@@ -134,7 +134,6 @@ const CreatePollingUnit: NextPage<{
 
 value={selectedLga}
 onChange={e => {
-    console.log(e.target.value);
     setSelectedLga(parseInt((e.target as any).value))
 }}
 >

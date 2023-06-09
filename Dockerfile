@@ -1,4 +1,4 @@
-FROM node:16-alpine as base
+FROM node:18-alpine as base
 
 WORKDIR /usr/src/app
 # RUN npm install -g yarn
@@ -12,8 +12,8 @@ COPY . /
 RUN npm run build
 CMD ["npm", "run", "start"]
 
-FROM base as dev
-ENV NODE_ENV=development
-RUN npm install
-COPY . /
-CMD ["npm", "run", "dev"]
+# FROM base as dev
+# ENV NODE_ENV=development
+# RUN npm install
+# COPY . /
+# CMD ["npm", "run", "dev"]
